@@ -1,0 +1,25 @@
+{
+  "name": "fepro",
+  "version": "1.0.1",
+  "description": "\"fe project build debug running deploy\"",
+  "main": "bin/fepro.js",
+  "scripts": {
+    "test": "-t"
+  },
+  "keywords": [
+    "project",
+    "build",
+    "debug",
+    "running",
+    "deploy"
+  ],
+  "author": {
+    "name": "shalles",
+    "email": "shalles@163.com",
+    "url": "http://shalles.github.io"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "copy-dir": "0.0.7"
+  }
+}

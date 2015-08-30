@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@import "base/base.scss";
+
+html, body{
+    margin:0;
+    padding:0;
+    height: 100%;
+}
+
+body{
+    background-color: #fba;
+}
+
+a{
+    color: #998;
+}
