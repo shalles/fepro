@@ -1,17 +1,16 @@
 {
-  "name": "",
+  "name": "demo",
   "version": "0.0.1",
   "authors": [
     "shalles"
   ],
-  "directory": "src/scripts/lib",
-  "description": "",
-  "main": "index.html",
+  "directory": "src/scripts/lib/",
+  "description": "demo lib",
   "keywords": [
-    "webmap"
+    "demo"
   ],
+  "main": "src/scripts/lib/index.js",
   "license": "MIT",
-  "homepage": "index.html",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -20,7 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.4",
-    "requirejs": "~2.1.20"
+    "jquery": "~2.1.4"
   }
 }

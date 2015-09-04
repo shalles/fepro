@@ -29,30 +29,31 @@ var dep = [],
     stylesSuffix = config.styles.scss ? '/*.scss' : '/*.css',
     scriptSuffix = config.scripts.coffee ? '/*.coffee' : '/*.js';
 
-function log(msg){
-    var str = '-',
-        len = 60 - msg.length;
-    len = len > 0 ? len/2 : 0;
+var utils = {
+    print: function(msg){
+        var str = '-',
+            len = 60 - msg.length;
+        len = len < 0 ? 0 : len/2;
+        
+        for(var i = 0; i < len; i++){
+            str += str;
+        }
+        console.log(str, msg, str);
+    },
+    sync: function(remote, msg){
     
-    for(var i = 0; i < len; i++){
-        str += str;
+        var remote = config.remote,
+            rsync = new Rsync()
+              .shell('ssh')
+              .flags(remote.flags || 'az')
+              .source(remote.suorce)
+              .destination(remote.dest);
+             
+        rsync.execute(function(error, code, cmd) {
+            console.log('err: ', error, '\ncode: ', code, '\ncmd: ', cmd);
+            code ===0 && utils.print(msg);
+        });
     }
-    console.log(str + msg + str);
-}
-
-function sync(remote, msg){
-    
-    var remote = config.remote,
-        rsync = new Rsync()
-          .shell('ssh')
-          .flags(remote.flags || 'az')
-          .source(remote.suorce)
-          .destination(remote.dest);
-         
-    rsync.execute(function(error, code, cmd) {
-        console.log('err: ', error, '\ncode: ', code, '\ncmd: ', cmd);
-        code ===0 && log(msg);
-    });
 }
 
 config.styles && 
@@ -82,7 +83,7 @@ gulp.task('styles', function() {
             .pipe(gulp.dest(config.tmp)) :
         data.pipe(gulp.dest(config.styles.exp));
 
-    log('styles');
+    utils.print('styles');
 });
 
 config.scripts && 
@@ -112,7 +113,7 @@ gulp.task('scripts', function() {
             .pipe(gulp.dest(config.tmp)) : 
         data.pipe(gulp.dest(config.scripts.exp));
 
-    log('scripts');
+    utils.print('scripts');
 });
 
 // Copy all static images
@@ -127,7 +128,7 @@ gulp.task('images', function() {
 
     config.livereload && data.pipe(livereload());
 
-    log('images');
+    utils.print('images');
 });
 
 config.views && dep.push('views') && 
@@ -145,7 +146,7 @@ gulp.task('views', function(){
 
     config.livereload && data.pipe(livereload());
 
-    log('views');
+    utils.print('views');
 });
 
 
@@ -165,14 +166,14 @@ console.log("执行依赖:", dep);
 
 // 部署
 gulp.task('deploy', dep, function(){
-    log("开始部署到服务器");
-    log(config.remote.dest);
+    utils.print("开始部署到服务器");
+    utils.print(config.remote.dest);
     sync(config.remote, "文件已部署到远程服务器");
 })
 
 //同步到服务器
 gulp.task('sync', function() {
-    log("开始同步到远程服务器");
+    utils.print("开始同步到远程服务器");
     sync(config.remote, "文件已同步到远程服务器");
 });
 

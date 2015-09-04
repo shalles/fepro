@@ -1,8 +1,9 @@
 {
   "name": "fepro",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "\"fe project build debug running deploy\"",
   "main": "bin/fepro.js",
+  "bin": "bin/fepro.js",
   "scripts": {
     "test": "-t"
   },
@@ -13,6 +14,18 @@
     "running",
     "deploy"
   ],
+  "files": [
+    "index.js",
+    "src",
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shalles/fepro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shalles/fepro/issues"
+  },
   "author": {
     "name": "shalles",
     "email": "shalles@163.com",
