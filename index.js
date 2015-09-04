@@ -1,3 +1,4 @@
+
 var copy = require('copy-dir'),
 	path = require('path'),
 	fs = require('fs');
@@ -21,12 +22,13 @@ function excuteSingleCommand(cmd){
 			break;
 		case '-h':
 		default:
-			cmdIdx++
+			cmdIdx++;
 			console.log(
-				"----------------------------fepro---------------------------",
-				"-b\tbuild project use template[gulp, demo, ...]",
-				"-h\thelp?"
-			)
+				"----------------------------fepro---------------------------\n",
+				"\n-b\tbuild project use template[gulp, demo, ...]",
+				"\n-h\thelp?"
+			);
+			break;
 	}
 }
 function buildProject(name){
@@ -55,7 +57,8 @@ function buildProject(name){
 		}, 
 		function(err){
 			console.log('ok');
-  	});
+  		}
+  	);
 }
 
 module.exports = excuteCommand;

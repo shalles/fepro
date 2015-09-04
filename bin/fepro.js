@@ -1,3 +1,5 @@
-var excuteCommand = require("../index");
+#!/usr/bin/env node
+
+var excuteCommand = require('../index.js');
 
 excuteCommand();

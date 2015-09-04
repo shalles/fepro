@@ -1,9 +1,9 @@
 {
   "name": "fepro",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "\"fe project build debug running deploy\"",
   "main": "bin/fepro.js",
-  "bin": "bin/fepro.js",
+  "bin": "./bin/fepro.js",
   "scripts": {
     "test": "-t"
   },
