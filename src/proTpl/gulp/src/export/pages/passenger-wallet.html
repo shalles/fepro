@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" media="(device-height: 568px)">
+    <meta name="format-detection" content="telephone=no" />
+    <title>我的钱包</title>
+    <link rel="stylesheet" href="/static/webapp/src/css/merged-common-ui.css">
+    <link rel="stylesheet" href="/static/webapp/src/css/p-passenger-wallet.css">
+    <!--<link rel="stylesheet" href="/static/webapp/src/css/merged-ui-passenger-wallet.css">-->
+</head>
+
+<body>
+    <ul class="wallet" id="pcode">
+        <li>
+            <a href="javascript:void(0);">
+                <span class="i-icon i-cdkey">兑换优惠码</span>
+                <span class="i-num">
+                </span>
+            </a>
+        </li>
+    </ul>
+    <ul class="wallet" id="wallet">
+        <li>
+            <a href="javascript:void(0);">
+                <span class="i-icon i-score">积分</span>
+                <span class="i-num">
+                    <?php echo is_null($bonuspoint)? "": "<em>".$bonuspoint. "</em>分"; ?>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0);">
+                <span class="i-icon i-coupon">打车券</span>
+                <span class="i-num" id='numCoupon'>
+                    <?php echo is_null($coupon)? "": "<em>".$coupon."</em>张"; ?>
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0);">
+                <span class="i-icon i-balance">余额</span>
+                <span class="i-num">
+                    <em><?php echo number_format($balance/100,2); ?></em>元
+                </span>
+            </a>
+        </li>
+    </ul>
+    <ul class="bizcoupon"></ul>
+    <script type="text/javascript">
+    var pageData = {
+        score: "<?php echo is_null($bonuspoint)? 0: $bonuspoint ?>",
+        coupon: "<?php echo is_null($coupon)? 0: $coupon; ?>",
+        balance: "<?php  echo is_null($balance)? 0: $balance; ?>",
+        token: "<?php  echo $token; ?>",
+        phone: "<?php  echo $phone; ?>",
+        lat: "<?php  echo $lat; ?>",
+        lng: "<?php  echo $lng; ?>",
+        maptype: "<?php  echo $maptype; ?>",
+        openid: "<?php  echo $openid; ?>",
+        bizcoupon: "<?=$bizcoupon?>"
+    };
+    </script>
+    <script type="text/javascript" src="/static/webapp/src/js/merged-base-dialog.js"></script>
+    <script type="text/javascript" src="/static/webapp/src/js/merged-md5-kop.js"></script>
+    <script type="text/javascript" src="/static/webapp/src/js/p-passenger-wallet.js">
+    </script>
+    <script type="text/javascript">
+    
+    </script>
+</body>
+
+</html>

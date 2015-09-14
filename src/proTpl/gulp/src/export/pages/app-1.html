@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <title>Shalles Demo</title>
+        <link rel="stylesheet" href="../css/app-1.css"> 
+    </head>
+
+    <body>
+        
+        <div class="m-place-suggest js-start">
+            <label>地点：</label>
+            <div class="city-ipt-wrap">
+                <input class="m-suggest-input" type="text" name="place" value="">
+            </div>
+            <div class="m-suggest-panel js-suggest">
+                <div class='active' data-idx='0'></div>
+            </div>
+        </div>
+        <!-- <\?php.*\?>(?:(?:([\S\s]*)(<\?=\s*[$\[\]'\w\?:\s]*;*\s*\?>)*([\S\s]*))<\?(?:php)?\s*\}\s*\?>)*
+        <form action="" id="submitM">
+            <?php $i=0;$r="first-row"; foreach($list as $li){$i++;$row=$r.$i?>
+                <tr class=<?= $row?>>
+                <td><?= $li['time']?></td>
+                <td><?= $li['setuptime']?></td>
+                <td><?= $li['type'] ?></td>
+                <td><?= $li['state']?></td>
+                <td><?= empty($li['phone'])? '无' :$li['phone']  ?></td>
+                <td><?= empty($li['destination'])?'无' :$li['destination']  ?></td>
+                <td><?= empty($li['driverName'])? '无' :$li['driverName']?></td>
+                <td><?= empty($li['licenseNumber'])? '无' :$li['licenseNumber']?></td>
+                <td><?= empty($li['msisdn'])? '无' :$li['msisdn']?></td>
+                <td>
+                <form class = "cancel-order"  method = "post" action = "<?=$url['manage-order']?>">
+                <input id = "cancelorderId" style="display:none" type = "text" name ="cancelorderId" value ="<?=$li['oid']?>">
+                <input id = "cancel-button" class = "cancel-b" onclick="$('#cancelorderId').submit();" type = "submit" value = "取消">
+                </form>
+                <input class = "complaint-button" onclick="$('#<?="complaint".$i?>,#<?="complaint-reason".$i?>,#popup-layer').show();" type = "button" value = "投诉">
+                <div id =<?="complaint".$i?> class = "complaint" style = "display: none;">
+                <label>投诉原因</label>
+                <div id =<?="complaint-reason".$i?> class ="complaint-reason"  >
+                    <form id = <?="complaint-form".$i?> method ="post" action ="<?=$url['manage-order']?>">
+                    <input id = "orderId" style="display:none" type = "text" name = "orderId" value ="<?=$li['oid']?>">
+                    <input id = "pphone" style="display:none" type = "text" name = "pphone" value ="<?=$li['phone']?>">
+                    <input id = "dphone" style="display:none" type = "text" name = "dphone" value ="<?=$li['msisdn']?>">
+                    <input id = "complaint1" type = "radio" name = "content" value = "1" />司机没来接我
+                    <br />
+                    <input id = "cpmplaint2" type = "radio" name = "content" value = "2"/>司机态度恶劣
+                    <br />
+                    <input id = "complaint3" type = "radio" name = "content" value = "3"/>不正规司机
+                    <br />
+                    <input id = "complaint4" type = "radio" name = "content" value = "4"/>其它
+                    <br />  
+                    <input id = "complaint-sbm"  onclick="$('#<?="complaint-form".$i?>,#orderId,#pphone,#dphone').submit();" type = "submit" value = "提交">
+                    <input id = "complaint-cc" onclick="$('.complaint,.complaint-reason,#popup-layer').hide();" class="print-btn" type="button" value="取消"/>
+                </form>
+                <div class = "bottom"></div>
+                </div>
+            </td>       
+            </tr>
+            </tr>
+            <?}?>
+        </form> -->
+        <script type="text/javascript">
+        var pageData = {
+            score: "<?php echo is_null($bonuspoint)? 0: $bonuspoint ?>",
+            coupon: "<?php echo is_null($coupon)? 0: $coupon; ?>",
+            balance: "<?php  echo is_null($balance)? 0: $balance; ?>",
+            token: "<?php  echo $token; ?>",
+            phone: "<?php  echo $phone; ?>",
+            lat: "<?php  echo $lat; ?>",
+            lng: "<?php  echo $lng; ?>",
+            maptype: "<?php  echo $maptype; ?>",
+            openid: "<?php  echo $openid; ?>",
+            bizcoupon: "<?=$bizcoupon?>"
+        };
+        </script>
+        <script src="../js/app-1.js"></script>d
+    </body>
+</html>
