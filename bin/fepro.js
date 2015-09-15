@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
-var excuteCommand = require('../index.js');
+var fepro = require('../index.js');
 
-excuteCommand();
+var cmds = process.argv;
+
+fepro.excuteCommand(cmds);

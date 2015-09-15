@@ -1,14 +1,14 @@
 
 var copy = require('copy-dir'),
 	path = require('path'),
+	gutils = require("./lib/utils-gulp"),
 	fs = require('fs');
 
 var root = __dirname,
 	cwd = process.cwd(),
-	cmds = process.argv,
 	cmdIdx = 2;
 
-function excuteCommand(){
+function excuteCommand(cmds){
 	var cmd;
 	while(cmd = cmds[cmdIdx]){
 		excuteSingleCommand(cmd);
@@ -19,6 +19,8 @@ function excuteSingleCommand(cmd){
 		case '-b': 
 			buildProject(process.argv[3]);
 			cmdIdx += 2;
+			break;
+		case 'init':
 			break;
 		case '-h':
 		default:
@@ -36,10 +38,13 @@ function buildProject(name){
 	console.log('log-----------------------------------');
 	console.log('cwd=',cwd);
 	console.log('root=',root);
-	var base = path.join(root, 'src/proTpl/'),
-		src = path.join(base, name),
+	var src = path.join('~/.fepro/', name), //path.join(root, 'src/proTpl/', name),
 		dist = cwd;
-	
+
+	if(!fs.existsSync(src) && !fs.existsSync(src = path.join(root, 'src/proTpl/', name))){
+		return;
+	}
+
 	copy.sync(src, dist, 
 		function(_stat, _path, _file){
 			var stat = true;
@@ -61,4 +66,7 @@ function buildProject(name){
   	);
 }
 
-module.exports = excuteCommand;
+module.exports = {
+	gulpUtils: gutils,
+	excuteCommand: excuteCommand
+}

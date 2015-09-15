@@ -7,204 +7,65 @@
 'use strict';
 
 /*==START========================================================================*/
-var del = require('del'),
-    path = require('path'),
-    gulp = require('gulp'),
-    Rsync = require('rsync'),
-    rev = require('gulp-rev'),
-    jade = require('gulp-jade'),
-    coffee = require('gulp-coffee'),
-    uglify = require('gulp-uglify'),
-    compass = require('gulp-compass'),
-    gulpFecmd = require('gulp-fecmd'),
-    config = require('./fepro.config'),
-    imagemin = require('gulp-imagemin'),
-    minifyCSS = require('gulp-minify-css'),
-    sourcemaps = require('gulp-sourcemaps'),
-    livereload = require('gulp-livereload'),
-    revreplace = require('gulp-rev-replace');
+var gulp = require('gulp'),
+    fepro = require('fepro').gulpUtils(gulp);
 
-var dep = [],
-    DEBUG = config.env === 'DEBUG',
-    stylesSuffix = config.styles.scss ? '/*.scss' : '/*.css',
-    scriptSuffix = config.scripts.coffee ? '/*.coffee' : '/*.js';
+var dep = ['styles', 'scripts', 'views', 'images'];
 
-var utils = {
-    print: function(msg) {
-        var str = '-',
-            len = 60 - (msg.split('')).length;
-        len = (len < 0 && len > 60) ? 0 : len / 2;
-
-        for (var i = 0; i < len; i++) {
-            str += str;
-        }
-        console.log(len);
-    },
-    sync: function(remote, msg) {
-
-        var remote = config.remote,
-            rsync = new Rsync()
-            .shell('ssh')
-            .flags(remote.flags || 'az')
-            .source(remote.suorce)
-            .destination(remote.dest);
-
-        rsync.execute(function(error, code, cmd) {
-            console.log('err: ', error, '\ncode: ', code, '\ncmd: ', cmd);
-            code === 0 && console.log(msg);
-        });
-    }
-}
-
-
-config.styles &&
-    dep.push('styles') &&
-    gulp.task('styles', function() {
-        var styles = config.styles;
-        var data = styles.scss ?
-            gulp.src(styles.src + stylesSuffix)
-            .pipe(compass({
-                css: styles.src + '/css',
-                sass: styles.src,
-                style: styles.style || 'expanded' //:nested, :expanded, :compact, or :compressed
-            }))
-            .on('error', function(error) {
-                console.log(error);
-                //this.emit('end');
-            }) :
-            gulp.src(styles.src + stylesSuffix);
-
-        config.minify && (data = data.pipe(minifyCSS()));
-
-        config.livereload && data.pipe(livereload());
-
-        config.version ?
-            data.pipe(rev())
-            .pipe(gulp.dest(styles.exp))
-            .pipe(rev.manifest('css-map.json'))
-            .pipe(gulp.dest(config.tmp)) :
-            data.pipe(gulp.dest(styles.exp));
-
-        console.log('styles');
-    });
-
-config.scripts &&
-    dep.push('scripts') &&
-    gulp.task('scripts', function() {
-        var scripts = config.scripts;
-        var data = scripts.coffee ?
-            gulp.src(scripts.src + scriptSuffix)
-            .pipe(sourcemaps.init())
-            .pipe(coffee())
-            .on('error', function(error) {
-                console.log(error);
-            }) :
-            gulp.src(scripts.src + scriptSuffix)
+gulp.task('styles', function() {
+    var data = fepro.style(function(data){
             
-        config.env === 'DEBUG' && (data = data.pipe(sourcemaps.init()));
+            return data;
+        });
+});
 
-        data = data.pipe(gulpFecmd());
-
-        config.minify && (data = data.pipe(uglify()).pipe(sourcemaps.write()));
-
-        config.livereload && data.pipe(livereload());
-
-        config.version ?
-            data.pipe(rev())
-            .pipe(gulp.dest(scripts.exp))
-            .pipe(rev.manifest('js-map.json'))
-            .pipe(gulp.dest(config.tmp)) :
-            data.pipe(gulp.dest(scripts.exp));
-
-        console.log('scripts');
-    });
+gulp.task('scripts', function() {
+    var data = fepro.script(function(data){
+            
+            return data;
+        });
+});
 
 // Copy all static images
-config.images && dep.push('images') &&
-    gulp.task('images', function() {
-        var images = config.images;
-        var data = gulp.src(images.src);
+gulp.task('images', function() {
+    var data = fepro.image(function(data){
+            
+            return data;
+        });
+});
 
-        images.min && (data = data.pipe(imagemin({
-            optimizationLevel: 5
-        })));
+gulp.task('views', function() {
+    var data = fepro.view(function(data){
 
-        data.pipe(gulp.dest(images.exp));
-
-        config.livereload && data.pipe(livereload());
-
-        console.log('images');
-    });
-
-config.views && dep.push('views') &&
-    gulp.task('views', function() {
-        var views = config.views;
-        var data = gulp.src(views.src),
-            manifest = gulp.src(config.tmp + '/*.json');
-
-        config.views.jade && (data = data.pipe(jade({
-            client: true
-        })));
-
-        config.version &&
-            (data = data.pipe(revreplace({
-                replaceInExtensions: ['.jade', '.html', '.vm', '.htm'],
-                manifest: manifest
-            })));
-
-        data.pipe(gulp.dest(views.exp));
-
-        config.livereload && data.pipe(livereload());
-
-        console.log('views');
-    });
+            return data;
+        });
+});
 
 
 gulp.task('watch', dep, function() {
-    livereload.listen();
-
-    config.views && gulp.watch(config.views.src, ['views']);
-    config.styles && gulp.watch(config.styles.src + stylesSuffix, ['styles']);
-    config.scripts && gulp.watch(config.scripts.src + scriptSuffix, ['scripts']);
-    config.images && gulp.watch(config.images.src, ['images']);
-    config.version && gulp.watch(config.tmp + '/*.json', ['views']);
+    var data = fepro.watch(true);
 });
 
-var servermock = require('servermock');
-
-dep.push('server') && 
-gulp.task('server', function() {
-    var opt = config.server;
-    console.log(opt);
-    servermock(opt);
+gulp.task('server', ['watch'], function() {
+    fepro.server();
 });
-
-gulp.task('mock', ['server'], function() {
-    var mock = config.server.mock;
-    mock(mock)
-})
 
 gulp.task('del', function() {
-    del.sync([config.exports]);
-})
-
-console.log("执行依赖:", dep);
+    fepro.del();
+});
 
 // 部署
 gulp.task('deploy', dep, function() {
-    console.log("开始部署到服务器");
-    console.log(config.sync.dest);
-    sync(config.sync, "文件已部署到远程服务器");
+    fepro.deploy();
 })
 
 //同步到服务器
-gulp.task('sync', function() {
-    console.log("开始同步到远程服务器");
-    sync(config.sync, "文件已同步到远程服务器");
+gulp.task('sync', dep, function() {
+    fepro.rsync();
 });
 
 /*==END========================================================================*/
 
-gulp.task('default', ['watch'], function() {
+gulp.task('default', ['server'], function() {
 
 });

@@ -1,8 +1,8 @@
 {
   "name": "fepro",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "\"fe project build debug running deploy\"",
-  "main": "bin/fepro.js",
+  "main": "index.js",
   "bin": "./bin/fepro.js",
   "scripts": {
     "test": "-t"
@@ -17,6 +17,7 @@
   "files": [
     "index.js",
     "src",
+    "lib",
     "bin"
   ],
   "repository": {
@@ -33,6 +34,19 @@
   },
   "license": "MIT",
   "dependencies": {
-    "copy-dir": "0.0.7"
+    "copy-dir": "0.0.7",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-fecmd": "^1.0.5",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-rev": "^5.1.0",
+    "gulp-rev-replace": "^0.4.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "rsync": "^0.4.0",
+    "servermock": "^1.0.15"
   }
 }
