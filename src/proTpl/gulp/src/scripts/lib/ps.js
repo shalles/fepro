@@ -9,7 +9,7 @@ var PlaceSuggestion = (function() {
             minput: '.m-suggest-input',
             mmaxcount: 10,
             mitemheight: 24,
-            url: '/api/placesuggestion',
+            url: 'qq/api/placesuggestion',
             data: 'No.9527',
             ps: {
                 city: '北京市',
