@@ -34,7 +34,7 @@ function excuteSingleCommand(cmd){
 			break;
 		case '-i': // init
 			var proname = getArg();
-			proname && utils.projectInit(proname);
+			utils.projectInit(proname);
 			break;
 		case '-h':
 		default:
