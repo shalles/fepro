@@ -22,7 +22,7 @@ function getArg(){
 
 function excuteSingleCommand(cmd){
 	switch(cmd){
-		case '-b': 
+		case '-b': // bulid
 			var name = getArg(),
 				proname = getArg();
 			// console.log(proname);
@@ -32,7 +32,9 @@ function excuteSingleCommand(cmd){
 			}
 			buildProject(name, proname);
 			break;
-		case 'init':
+		case '-i': // init
+			var proname = getArg();
+			proname && utils.projectInit(proname);
 			break;
 		case '-h':
 		default:
