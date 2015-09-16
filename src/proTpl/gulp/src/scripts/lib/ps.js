@@ -181,7 +181,7 @@ var PlaceSuggestion = (function() {
             for (i = 0; i < opt.mmaxcount && i < this.curLen; i++) {
 
                 items.push('<div class="item' + (i === 0 ? ' active' : '') +
-                    '" data-uid="' + data[i].uid + '" data-idx="' + i + '">' +
+                    '" data-id="' + data[i].id + '" data-idx="' + i + '">' +
                     data[i].name + '<span>' + (data[i].addr || '') + '</span></div>');
             }
             this.idx = 0;
@@ -198,8 +198,8 @@ var PlaceSuggestion = (function() {
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    if (data['errno'] == 0) {
-                        self.res = data['result'];
+                    if (data['status'] === 0) {
+                        self.res = data['data'];
                         cb && cb(self.res);
                     }
                 },

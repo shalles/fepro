@@ -1,8 +1,8 @@
 
-var copy = require('copy-dir'),
+var fs = require('fs'),
 	path = require('path'),
-	gutils = require("./lib/utils-gulp"),
-	fs = require('fs');
+	utils = require('./lib/utils'),
+	gutils = require("./lib/utils-gulp");
 
 var root = __dirname,
 	cwd = process.cwd(),
@@ -10,60 +10,58 @@ var root = __dirname,
 
 function excuteCommand(cmds){
 	var cmd;
-	while(cmd = cmds[cmdIdx]){
+	while(cmd = cmds[cmdIdx++]){
 		excuteSingleCommand(cmd);
 	}
 }
+
+function getArg(){
+	var arg = ((arg = process.argv[cmdIdx]) && (arg[0] === '-')) ? '' : (cmdIdx++, arg || '');
+	return arg;
+}
+
 function excuteSingleCommand(cmd){
 	switch(cmd){
 		case '-b': 
-			buildProject(process.argv[3]);
-			cmdIdx += 2;
+			var name = getArg(),
+				proname = getArg();
+			// console.log(proname);
+			if(!name){
+				console.log("please specify project template name after -b (gulp or ...).\n");
+				return;
+			}
+			buildProject(name, proname);
 			break;
 		case 'init':
 			break;
 		case '-h':
 		default:
-			cmdIdx++;
 			console.log(
-				"----------------------------fepro---------------------------\n",
+				"\n----------------------------fepro---------------------------\n",
 				"\n-b\tbuild project use template[gulp, demo, ...]",
 				"\n-h\thelp?"
 			);
 			break;
 	}
 }
-function buildProject(name){
+function buildProject(name, proName){
 	
-	console.log('log-----------------------------------');
-	console.log('cwd=',cwd);
-	console.log('root=',root);
-	var src = path.join('~/.fepro/', name), //path.join(root, 'src/proTpl/', name),
-		dist = cwd;
+	console.log('fepro log-----------------------------------');
+	var src = path.join(utils.getUserDir(), '.fepro/', name), //path.join(root, 'src/proTpl/', name),
+		dist = path.join(cwd, proName);
 
 	if(!fs.existsSync(src) && !fs.existsSync(src = path.join(root, 'src/proTpl/', name))){
+		console.log("没有找到项目模板：", name);
 		return;
 	}
 
-	copy.sync(src, dist, 
-		function(_stat, _path, _file){
-			var stat = true;
-			if (_stat === 'file' && path.extname(_path) === '.setting') {
-				// copy files, without .html 
-				stat = false;
-			} else if (_stat === 'directory' && _file === '.svn') {
-				// copy directories, without .svn 
-				stat = false;
-			}
-			
-			console.log((stat ? "copy " : "filter ") + _path);
-			
-			return stat;
-		}, 
-		function(err){
-			console.log('ok');
-  		}
-  	);
+	var result = utils.copySync(src, dist);
+
+  	var msg = 'fepro bulid ' + name;
+
+	msg += result.status ? ' ok' : ' error:\n' + result.msg;
+	console.log(msg);
+
 }
 
 module.exports = {
