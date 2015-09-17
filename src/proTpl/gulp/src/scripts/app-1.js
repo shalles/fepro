@@ -5,7 +5,7 @@
 // about require more see https://github.com/shalles/gulp-fecmd
 // or https://www.npmjs.com/package/gulp-fecmd or fecmd
 
-var $ = require('jquery');
+var $ = require('jquery!!');
 var utils = require('lib/utils');
 var Calc = require('./lib/file.es6');
 var PlaceSuggestion = require('./lib/ps');
