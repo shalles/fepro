@@ -1,6 +1,6 @@
 {
   "name": "fepro",
-  "version": "1.1.11",
+  "version": "1.1.13",
   "description": "\"fe project build debug running deploy\"",
   "main": "index.js",
   "bin": "./bin/fepro.js",
@@ -46,6 +46,6 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "rsync": "^0.4.0",
-    "servermock": "^1.0.15"
+    "servermock": "^2.0.0"
   }
 }
