@@ -1,0 +1,19 @@
+{
+    "name": "demo",
+    "version": "0.0.2",
+    "authors": [
+        "shalles"
+    ],
+    "description": "demo lib",
+    "main": "src/scripts/app-1.js",
+    "license": "MIT",
+    "ignore": [
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "~2.1.4"
+    }
+}

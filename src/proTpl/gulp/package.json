@@ -1,0 +1,16 @@
+{
+  "name": "fepro-gulp-demo",
+  "version": "0.0.2",
+  "description": "shalles fepro gulp-demo-template",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "fepro": "^1.0.6",
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "gulp"
+  },
+  "author": "shalles",
+  "license": "MIT"
+}
