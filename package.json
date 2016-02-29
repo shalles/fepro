@@ -3,9 +3,7 @@
   "version": "1.1.13",
   "description": "\"fe project build debug running deploy\"",
   "main": "index.js",
-  "bin": {
-    "fepro": "./bin/fepro.js"
-  },
+  "bin": "./bin/fepro.js",
   "scripts": {
     "test": "-b gulp"
   },
@@ -49,13 +47,5 @@
     "gulp-uglify": "^1.2.0",
     "rsync": "^0.4.0",
     "servermock": "^2.0.0"
-  },
-  "readme": "# fepro\n\n## New Version\n\n`version 1.1.6:` <br>\n+ fepro init\n\n```js\n$ fepro -i\n\n//or in gulp project template\n$ fepro -i gulp\n```\ninitialize command read from fepro.config.init\n\n\n## Insatll\n\n```js\n$ (sudo) npm install -g fepro\n```\n\n## Usage\n\n```js\n// xxx is you project folder\n$ mkdir xxx\n$ cd xxx\n$ fepro -b gulp\n\n//or \n\n$ fepro -b gulp xxx \n```\n\n// new project please excute \n\n```js\n$ bower install && npm install \n\n//or\n\n$ fepro -i gulp\n\n$ gulp\n```\n\n// at project build/base path same as package.json <br>\n// more config in fepro.config\n\n```js\n//fepro.config\n{\n    \"init\": \"bower install && npm install\", //ininial command  \"$ fepro -i\"\n    \"env\": \"RE\", //Debug 版本号为@dev 代码无压缩 非Debug 版本号为@时间戳 代码压缩\n    \"version\": false, //!DEBUG,\n    // 此功能需要安装chrome插件 \"https\"://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei\n    \"livereload\": true, //DEBUG,\n    \"minify\": true, //!DEBUG,\n    // 本地导出目录\n    \"exports\": \"src/export\",\n    \"tmp\": \"src/tmp\",\n    \"server\":{ //more see servermock \"https\"://www.npmjs.com/package/servermock or \"https\"://github.com/shalles/servermock\n        \"port\": 8080,\n        \"protocol\": \"http\", //https\\\n        //\"key\": \"~/cert/cert.key\",\n        //\"cert\": \"~cert/cert.crt\",\n        \"main\": \"src/export/pages/app-1.html\",\n        \"plugins\":[{\n            \"name\": \"mock\",\n            \"open\": true,\n            \"param\": {\n                \"datapath\": \"mock/\",\n                \"mockrc\": \".mockrc\", //相对mock datapath 可用绝对路径 \n                \"ignore\": [\"html\", \"jpg\", \"png\", \"gif\"],\n                \"regexurl\": { //前面是regex new RegExp() \n                    \"/api/1placesuggestion\" : \"placesuggestion.js\", //走js 遵循cmd \n                    \"/api/1placesuggestion\" : \"placesuggestion.json\", // \n                    \"/api/placesuggestion\" : \"placesuggestion.mjson\" // \n                }\n            }\n        },{\n            \"name\": \"pagemock\",\n            \"open\": true,\n            \"param\": {\n                \"basepath\": \"mock/page\", //\"\", //default: 同级目录 \n                \"mockrc\": \"../.mockrc\", //基于basepath 可与mock同用 可用绝对路径 \n                \"acceptExts\": [\"php\", \"html\", \"vm\"] //监听的页面扩展 \n            }\n        },{ // 需要单独安装 servermock plugin -i https://github.com/shalles/synctest.git\n            \"name\": \"synctest\",\n            \"open\": true,\n            \"param\": {\n                //vpn: \"192.168.1.6\", \n                \"exts\": [\"html\", \"php\", \"vm\"]\n            }\n        }]\n    },\n    // 需要上传到服务器的时候启用 且值为远程服务器地址 gulp sync\n    \"sync\": {\n        \"flag\": \"az\", //详细请再命令行rsync -h : shell(value): --rsh=SHELL; delete(): --delete;  progress(): --progress;  archive(): -a;  compress(): -z;  recursive(): -r;  update(): -u;  quiet(): -q;  dirs(): -d;  links(): -l;  dry(): -n;          \n        \"source\": \"src/export/*\",\n        \"dest\": \"192.168.1.15:/home/shalles/workspace/www/src.shalles.org\"\n    },\n    // 视图页面的目录和导出目录\n    \"views\": {\n        \"src\": \"src/views/**/*\",\n        \"exp\": \"src/export/pages\"\n    },\n    // 脚本的目录和导出目录 支持coffee\n    \"scripts\": {\n        \"src\": \"src/scripts/\",\n        \"exp\": \"src/export/js\"\n    },\n    \"styles\": {\n        \"scss\": true,  //使用scss开发时设为ture\n        \"src\": \"src/styles/\",\n        \"exp\": \"src/export/css\"\n    },\n    \"images\": {\n        \"min\": false,  //需要压缩图片是设为true\n        \"src\": \"src/images/**/*\",\n        \"exp\": \"src/export/images\"\n    }\n}\n```\n\n\nthere not only support gulp template, you can build yourself projecy template <br>\njust create a project folder in ~/.fepro/yourProjectFolder <br>\nand excute fepro -b yourProjectFolderName\n\n## more info\n\n[ https://www.npmjs.com/package/servermock ](https://www.npmjs.com/package/servermock) <br>\nor <br>\n[ https://github.com/shalles/servermock ](https://github.com/shalles/servermock)\n\n[ https://www.npmjs.com/package/gulp-fecmd or fecmd ](https://www.npmjs.com/package/gulp-fecmd) <br>\nor <br>\n[ https://github.com/shalles/gulp-fecmd ](https://github.com/shalles/gulp-fecmd) ",
-  "readmeFilename": "README.md",
-  "gitHead": "8c4e0393fd2413f8880428df57e2920df07e9397",
-  "homepage": "https://github.com/shalles/fepro",
-  "_id": "fepro@1.1.13",
-  "_shasum": "a600ad8e228b9ed72bf6d1c86eea13aad16503a0",
-  "_from": "fepro@>=1.0.6 <2.0.0",
-  "_resolved": "file:../../Users/shalles/WorkSpace/Git/hub/fepro"
+  }
 }
