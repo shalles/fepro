@@ -10,7 +10,7 @@
 var gulp = require('gulp'),
     fepro = require('fepro').gulpUtils(gulp);
 
-var dep = ['styles', 'scripts', 'views', 'images'];
+var dep = ['styles', 'scripts', 'views', 'images', 'watchfile'];
 
 gulp.task('styles', function() {
     var data = fepro.style(function(data){
@@ -41,6 +41,9 @@ gulp.task('views', function() {
         });
 });
 
+gulp.task('watchfile', function() {
+    fepro.watchFile();
+});
 
 gulp.task('watch', dep, function() {
     var data = fepro.watch(true);
