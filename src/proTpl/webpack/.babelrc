@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "latest"
+  ],
+  "plugins": [
+    "add-module-exports",
+    "transform-runtime",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ],
+  "comments": false,
+  "env": {
+    "test": {
+      "plugins": [ "istanbul" ]
+    }
+  }
+}
