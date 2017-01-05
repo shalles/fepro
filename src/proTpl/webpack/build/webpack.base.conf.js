@@ -91,7 +91,11 @@ module.exports = {
   postcss: function () {
     return [
       require('autoprefixer')({
-        browsers: ['last 2 versions']
+        browsers: ['last 2 versions'],
+        // https://github.com/postcss/autoprefixer#outdated-prefixes
+        remove: false,
+        add: true,
+        cascade: false
       })
     ]
   },
