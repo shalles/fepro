@@ -15,13 +15,17 @@ var webpackConfig = merge(baseWebpackConfig, {
     loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
+  // [id]         is replaced by the id of the chunk.
+  // [name]       is replaced by the name of the chunk (or with the id when the chunk has no name).
+  // [hash]       is replaced by the hash of the compilation. (more like a timestamp)
+  // [chunkhash]  is replaced by the hash of the chunk.
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
+  // https://webpack.github.io/docs/using-plugins.html
   plugins: [
-    // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
     }),
@@ -30,6 +34,8 @@ var webpackConfig = merge(baseWebpackConfig, {
         warnings: false
       }
     }),
+    // If you use any hashing ([hash] or [chunkhash]), make sure to have a 
+    // consistent ordering of modules. Use the OccurrenceOrderPlugin or recordsPath.
     new webpack.optimize.OccurrenceOrderPlugin(),
     // extract css into its own file
     new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
@@ -45,7 +51,9 @@ var webpackConfig = merge(baseWebpackConfig, {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
+        minifyCSS: true,
+        minifyJS: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },

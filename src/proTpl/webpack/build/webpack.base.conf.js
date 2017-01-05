@@ -11,14 +11,17 @@ let cssSourceMapProd = (env === 'production' && config.build.productionSourceMap
 let useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
+  // https://webpack.js.org/concepts/entry-points/
   entry: {
     app: './src/main.js' // 入口文件， 可以有多个入口
   },
+  // https://webpack.js.org/concepts/output/
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js'
   },
+  // https://webpack.github.io/docs/resolving.html
   resolve: {
     extensions: ['', '.js', '.vue', '.json'],
     fallback: [path.join(__dirname, '../node_modules')],
@@ -45,6 +48,8 @@ module.exports = {
         exclude: /node_modules/
       }
     ],
+    // https://webpack.js.org/concepts/loaders/
+    // https://webpack.github.io/docs/using-loaders.html
     loaders: [
       {
         test: /\.js$/,
