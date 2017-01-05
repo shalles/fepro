@@ -1,11 +1,11 @@
 {
   "name": "fepro",
-  "version": "1.1.16",
+  "version": "1.2.5",
   "description": "\"fe project build debug running deploy\"",
   "main": "index.js",
   "bin": "./bin/fepro.js",
   "scripts": {
-    "test": "-b gulp"
+    "test": "-b webpack"
   },
   "keywords": [
     "project",
@@ -17,6 +17,7 @@
   "files": [
     "index.js",
     "src",
+    "src/proTpl/webpack",
     "lib",
     "bin"
   ],
@@ -40,12 +41,14 @@
     "gulp-fecmd": "^1.0.5",
     "gulp-imagemin": "^2.3.0",
     "gulp-livereload": "^3.8.0",
-    "gulp-minify-css": "^1.2.0",
     "gulp-rev": "^5.1.0",
     "gulp-rev-replace": "^0.4.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "rsync": "^0.4.0",
-    "servermock": "^2.0.0"
+    "gulp-clean-css": "^2.3.2",
+    "servermock": "^2.1.18"
+  },
+  "devDependencies": {
   }
 }

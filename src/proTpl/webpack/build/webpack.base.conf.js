@@ -83,7 +83,7 @@ module.exports = {
       css: true
     }
   },
-  postcssLoaderConfig: function () {
+  postcss: function () {
     return [
       require('autoprefixer')({
         browsers: ['last 2 versions']
